@@ -1,0 +1,20 @@
+name: Release
+on:
+  push:
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+      - name: Docker release
+        uses: elgohr/Publish-Docker-Github-Action@main
+        with:
+          name: ismdeep/c9-ide
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          snapshot: true
+          tags: "latest"
